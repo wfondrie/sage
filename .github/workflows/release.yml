@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Install dependencies
       run: |
-        sudo apt-get install curl
+        sudo apt-get install -y curl
 
     - uses: actions/checkout@v2
     - uses: actions-rs/toolchain@v1
