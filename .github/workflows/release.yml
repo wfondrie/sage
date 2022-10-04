@@ -1,19 +1,17 @@
-name: Build
+name: Build Executable
 
 on: push
 
 jobs:
   build_linux:
-    strategy:
-      matrix:
-        image:                  # GLIBC
-        - centos:centos7.9.2009 # 2.17
-        - ubuntu:14.04          # 2.19
-
-    name: Build Sage
+    name: Build Sage on Linux
     runs-on: ubuntu-latest
-    container: ${{ matrix.image }}
+    container: ubuntu:14.04 # GLIBC 2.19
     steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get install curl
+
     - uses: actions/checkout@v2
     - uses: actions-rs/toolchain@v1
       with:
@@ -25,10 +23,10 @@ jobs:
 
     - name: See what's there
       run: |
-        ls -alh
+        ls -alh target
 
   build_windows:
-    name: Build Sage
+    name: Build Sage on Windows
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -42,10 +40,10 @@ jobs:
 
     - name: See what's there
       run: |
-        ls -alh
+        ls -alh target
 
   build_macos:
-    name: Build Sage
+    name: Build Sage on MacOS
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -59,4 +57,4 @@ jobs:
 
     - name: See what's there
       run: |
-        ls -alh
+        ls -alh target
