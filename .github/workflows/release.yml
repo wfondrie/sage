@@ -58,12 +58,12 @@ jobs:
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-        target: ${{ target }}
+        target: ${{ matrix.target }}
         override: true
     - uses: actions-rs/cargo@v1
       with:
         command: build
-        args: --release --target ${{ target }}
+        args: --release --target ${{ matrix.target }}
 
     - name: See what's there
       run: |
