@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build_ubuntu:
-    name: Build Sage on Linux
+    name: Build Sage for Debian
     runs-on: ubuntu-latest
     container: ubuntu:14.04 # GLIBC 2.19
     steps:
@@ -24,28 +24,11 @@ jobs:
 
     - name: See what's there
       run: |
-        ls -alh target
+        ls -alh target/release
 
   build_windows:
-    name: Build Sage on Windows
+    name: Build Sage for Windows
     runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-    - uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --release
-
-    - name: See what's there
-      run: |
-        ls -alh target
-
-  build_macos:
-    name: Build Sage on MacOS
-    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions-rs/toolchain@v1
@@ -59,4 +42,29 @@ jobs:
     - name: See what's there
       shell: bash
       run: |
-        ls -alh target
+        ls -alh target/release
+
+  build_macos:
+    name: Build Sage for MacOS
+    strategy:
+      matrix:
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: ${{ target }}
+        override: true
+    - uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --release --target ${{ target }}
+
+    - name: See what's there
+      run: |
+        ls -alh target/release
