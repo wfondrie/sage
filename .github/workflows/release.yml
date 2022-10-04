@@ -1,0 +1,65 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build_linux:
+    strategy:
+      matrix:
+        image:                    # GLIBC
+          - centos:centos7.9.2009 # 2.17
+          - ubuntu:14.04          # 2.19
+
+    name: Build Sage
+    runs-on: ubuntu-latest
+    container: ${{ container }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: See what's there
+        run: |
+          ls -alh
+
+  build_windows:
+    name: Build Sage
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: See what's there
+        run: |
+          ls -alh
+
+  build_macos:
+     name: Build Sage
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: See what's there
+        run: |
+          ls -alh
