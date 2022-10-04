@@ -3,14 +3,14 @@ name: Build Executable
 on: push
 
 jobs:
-  build_linux:
+  build_ubuntu:
     name: Build Sage on Linux
     runs-on: ubuntu-latest
     container: ubuntu:14.04 # GLIBC 2.19
     steps:
     - name: Install dependencies
       run: |
-        sudo apt-get install -y curl
+        sudo apt-get install -y curl build-essential
 
     - uses: actions/checkout@v2
     - uses: actions-rs/toolchain@v1
