@@ -1,14 +1,13 @@
 name: Upload to Release
 description: Upload the Sage executable to a new release.
 
-on:
-  inputs:
-    stem:
-      required: true
-      type: string
-    token:
-      required: true
-      type: string
+inputs:
+  stem:
+    required: true
+    type: string
+  token:
+    required: true
+    type: string
 
 runs:
   using: "composite"
