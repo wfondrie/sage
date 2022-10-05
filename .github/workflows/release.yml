@@ -61,7 +61,7 @@ jobs:
     name: Build Sage for MacOS
     strategy:
       matrix:
-        includes:
+        include:
           - target: x86_64-apple-darwin
             stem: macos-x86_64
           - target: aarch64-apple-darwin
