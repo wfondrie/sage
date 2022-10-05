@@ -17,8 +17,6 @@ runs:
   using: "composite"
   steps:
 
-  - name:
-
   - name: Upload build artifacts
     uses: actions/upload-artifact@v3
     with:
