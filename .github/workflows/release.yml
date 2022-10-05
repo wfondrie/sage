@@ -57,6 +57,7 @@ jobs:
       with:
         name: Windows 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
+        sage_ext: '.exe'
 
 
   build_macos:
