@@ -8,20 +8,22 @@ inputs:
   token:
     required: true
     type: string
-  sage_ext:
+  path:
     required: false
     type: string
-    default: ''
+    default: target/release/sage
 
 runs:
   using: "composite"
   steps:
 
+  - name:
+
   - name: Upload build artifacts
     uses: actions/upload-artifact@v3
     with:
       name: ${{ inputs.name }}
-      path: target/release/sage${{ inputs.sage_ext }}
+      path: ${{ inputs.path }}
 
   - name: Upload binaries to the release
     uses: svenstaro/upload-release-action@v2
@@ -30,5 +32,5 @@ runs:
       repo_token: ${{ inputs.token }}
       tag: ${{ github.ref }}
       asset_name: ${{ inputs.name  }}
-      file: target/release/sage${{ inputs.sage_ext }}
+      file: ${{ inputs.path }}
       overwrite: true

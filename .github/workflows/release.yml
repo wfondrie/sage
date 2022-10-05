@@ -57,7 +57,7 @@ jobs:
       with:
         name: Windows 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
-        sage_ext: '.exe'
+        path: target/release/sage.exe
 
 
   build_macos:
@@ -93,3 +93,4 @@ jobs:
       with:
         name: ${{ matrix.name }}
         token: ${{ secrets.GITHUB_TOKEN }}
+        path: ${{ matrix.target }}/release/sage
