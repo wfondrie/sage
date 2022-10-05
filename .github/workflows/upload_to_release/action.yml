@@ -38,7 +38,7 @@ runs:
     uses: svenstaro/upload-release-action@v2
     if: false
     with:
-      repo_token: ${{ secrets.token }}
+      repo_token: ${{ inputs.token }}
       tag: ${{ github.ref }}
       file: ${{ inputs.stem }}.zip
       overwrite: true
