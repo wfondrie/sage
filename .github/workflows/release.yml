@@ -1,6 +1,12 @@
-name: Build Release Executables
+name: Build Sage Executables
 
 on: push
+  #push:
+  #  branches: [ master ]
+  #pull_request:
+  #  branches: [ master ]
+  release:
+    types: [ created ]
 
 jobs:
   build_ubuntu:
@@ -28,7 +34,7 @@ jobs:
         args: --release
 
     - name: Upload executable to release
-      uses: ./.github/workflows/upload_to_release
+      uses: ./.github/workflows/upload_artifacts
       with:
         name: Linux 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +59,7 @@ jobs:
         args: --release
 
     - name: Upload executable to release
-      uses: ./.github/workflows/upload_to_release
+      uses: ./.github/workflows/upload_artifacts
       with:
         name: Windows 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -89,8 +95,8 @@ jobs:
         args: --release --target ${{ matrix.target }}
 
     - name: Upload to Release
-      uses: ./.github/workflows/upload_to_release
+      uses: ./.github/workflows/upload_artifacts
       with:
         name: ${{ matrix.name }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: ${{ matrix.target }}/release/sage
+        path: target/${{ matrix.target }}/release/sage

@@ -1,5 +1,5 @@
-name: Upload to Release
-description: Upload the Sage executable to a new release.
+name: Upload Artifacts
+description: Upload the Sage executable artifacts.
 
 inputs:
   name:
@@ -23,9 +23,9 @@ runs:
       name: ${{ inputs.name }}
       path: ${{ inputs.path }}
 
-  - name: Upload binaries to the release
+  - name: Upload artifacts to the release
     uses: svenstaro/upload-release-action@v2
-    if: false
+    if: ${{ github.event_name == 'release' }}
     with:
       repo_token: ${{ inputs.token }}
       tag: ${{ github.ref }}
