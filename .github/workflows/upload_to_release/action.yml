@@ -6,6 +6,9 @@ on:
     stem:
       required: true
       type: string
+  secrets:
+    token:
+      required: true
 
 runs:
   using: "composite"
@@ -35,7 +38,7 @@ runs:
     uses: svenstaro/upload-release-action@v2
     if: false
     with:
-      repo_token: ${{ secrets.GITHUB_TOKEN }}
+      repo_token: ${{ secrets.token }}
       tag: ${{ github.ref }}
       file: ${{ inputs.stem }}.zip
       overwrite: true
