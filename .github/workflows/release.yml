@@ -28,7 +28,7 @@ jobs:
         args: --release
 
     - name: Upload executable to release
-      uses: ./.github/workflows/upload_to_release.yml
+      uses: ./.github/workflows/upload_to_release
       with:
         stem: linux-x86_64
 
@@ -52,7 +52,7 @@ jobs:
         args: --release
 
     - name: Upload executable to release
-      uses: ./.github/workflows/upload_to_release.yml
+      uses: ./.github/workflows/upload_to_release
       with:
         stem: windows-x86_64
 
@@ -86,6 +86,6 @@ jobs:
         args: --release --target ${{ matrix.target }}
 
     - name: Upload to Release
-      uses: ./.github/workflows/upload_to_release.yml
+      uses: ./.github/workflows/upload_to_release
       with:
         stem: ${{ matrix.stem }}
