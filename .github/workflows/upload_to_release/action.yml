@@ -2,36 +2,26 @@ name: Upload to Release
 description: Upload the Sage executable to a new release.
 
 inputs:
-  stem:
+  name:
     required: true
     type: string
   token:
     required: true
     type: string
+  sage_ext:
+    required: false
+    type: string
+    default: ''
 
 runs:
   using: "composite"
   steps:
-  - name: Convert README to html
-    uses: docker://pandoc/core:2.9
-    with:
-      args: >-
-        --standalone
-        --output=README.html
-        README.md
-
-  - name: Bundle executable and README
-    shell: bash
-    run: |
-      mkdir ${{ inputs.stem }}
-      cp target/release/sage README.html ${{ inputs.stem }}
-      zip ${{ inputs.stem }}
 
   - name: Upload build artifacts
     uses: actions/upload-artifact@v3
     with:
-      name: ${{ inputs.stem }}
-      path: ${{ inputs.stem }}.zip
+      name: ${{ inputs.name }}
+      path: target/release/sage${{ inputs.sage_ext }}
 
   - name: Upload binaries to the release
     uses: svenstaro/upload-release-action@v2
@@ -39,6 +29,6 @@ runs:
     with:
       repo_token: ${{ inputs.token }}
       tag: ${{ github.ref }}
-      file: ${{ inputs.stem }}.zip
+      asset_name: ${{ inputs.name  }}
+      file: target/release/sage${{ inputs.sage_ext }}
       overwrite: true
-      file_glob: true

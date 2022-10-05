@@ -30,7 +30,7 @@ jobs:
     - name: Upload executable to release
       uses: ./.github/workflows/upload_to_release
       with:
-        stem: linux-x86_64
+        name: Linux 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
 
 
@@ -55,7 +55,7 @@ jobs:
     - name: Upload executable to release
       uses: ./.github/workflows/upload_to_release
       with:
-        stem: windows-x86_64
+        name: Windows 64-bit
         token: ${{ secrets.GITHUB_TOKEN }}
 
 
@@ -65,9 +65,9 @@ jobs:
       matrix:
         include:
           - target: x86_64-apple-darwin
-            stem: macos-x86_64
+            name: MacOS (Intel)
           - target: aarch64-apple-darwin
-            stem: macos-aarch64
+            name: MacOS (Apple Silicon)
 
     runs-on: macos-latest
     steps:
@@ -90,5 +90,5 @@ jobs:
     - name: Upload to Release
       uses: ./.github/workflows/upload_to_release
       with:
-        stem: ${{ matrix.stem }}
+        name: ${{ matrix.name }}
         token: ${{ secrets.GITHUB_TOKEN }}
