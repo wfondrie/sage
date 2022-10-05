@@ -31,7 +31,6 @@ jobs:
       uses: ./.github/workflows/upload_to_release
       with:
         stem: linux-x86_64
-      secrets:
         token: ${{ secrets.GITHUB_TOKEN }}
 
 
@@ -57,7 +56,6 @@ jobs:
       uses: ./.github/workflows/upload_to_release
       with:
         stem: windows-x86_64
-      secrets:
         token: ${{ secrets.GITHUB_TOKEN }}
 
 
@@ -93,5 +91,4 @@ jobs:
       uses: ./.github/workflows/upload_to_release
       with:
         stem: ${{ matrix.stem }}
-      secrets:
         token: ${{ secrets.GITHUB_TOKEN }}
